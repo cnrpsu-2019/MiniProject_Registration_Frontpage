@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import _ from "lodash"
 class Register extends Component {
   constructor(props) {
     super(props)
@@ -9,7 +10,6 @@ class Register extends Component {
           subjectName: "",
           subjectRegisAmount: 0,
           subjectAllAmount: 0,
-          teacher: "",
           deleteStatus: false
         }
       ]
@@ -18,34 +18,48 @@ class Register extends Component {
 
   componentDidMount() {
     //Mock Data
-    //TODO
+    var mockRegisSubject = Array(
+      {
+        subjectCode: "240-461",
+        subjectName: "Enterprise Network",
+        subjectRegisAmount: 2,
+        subjectAllAmount: 30,
+        deleteStatus: false
+      },
+      {
+        subjectCode: "240-460",
+        subjectName: "Internet Programing",
+        subjectRegisAmount: 3,
+        subjectAllAmount: 30,
+        deleteStatus: false
+      }
+    )
+    this.setState({ regisSubject: mockRegisSubject })
   }
 
   renderSubject = () => {
-    for (var i = 0; i < this.state.regisSubject.length; i++) {
-      this.showSubject(i)
-    }
-  }
+    console.log("hi from renderSubject")
+    let displayTable = _.map(this.state.regisSubject, subjectinfo => {
+      return (
+        <tr>
+          {/* <th>1</th> */}
+          <td>{subjectinfo.subjectCode}</td>
+          <td>{subjectinfo.subjectName}</td>
+          <td>{subjectinfo.subjectRegisAmount}</td>
+          <td>{subjectinfo.subjectAllAmount}</td>
 
-  showSubject = ref => {
-    return (
-      <tr>
-        <th>{ref + 1}}</th>
-        <td>{this.state.regisSubject[ref].subjectCode}</td>
-        <td>{this.state.regisSubject[ref].subjectName}</td>
-        <td>{this.state.regisSubject[ref].subjectRegisAmount}</td>
-        <td>{this.state.regisSubject[ref].subjectAllAmount}</td>
-        <td>ไม่มัข้อมูล</td>
-        <td>
-          <button className="button is-danger">ลบ</button>
-        </td>
-        <td>-</td>
-      </tr>
-    )
+          <td>
+            <button className="button is-danger">ลบ</button>
+          </td>
+          <td>-</td>
+        </tr>
+      )
+    })
+    return displayTable
   }
 
   render() {
-    var subject = this.renderSubject()
+    let displayTable = this.renderSubject()
     return (
       <div>
         <h3 className="title is-4">รายวิชาที่อยู่ใน List การ Register</h3>
@@ -57,20 +71,15 @@ class Register extends Component {
           <table className="table">
             <thead>
               <tr>
-                <th>
-                  <abbr title="No.">No.</abbr>
-                </th>
-
                 <th>รหัสวิชา</th>
                 <th>ชื่อวิชา</th>
                 <th>ลงแล้ว</th>
                 <th>จาก</th>
-                <th>อาจารย์</th>
                 <th>ลบ</th>
                 <th>หมายเหตุ</th>
               </tr>
             </thead>
-            <tbody>{subject}</tbody>
+            <tbody>{displayTable}</tbody>
           </table>
         </div>
       </div>
