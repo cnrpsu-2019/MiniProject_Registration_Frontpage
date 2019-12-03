@@ -1,26 +1,76 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react"
+import "bulma/css/bulma.min.css"
+import Menu from "./Component/Menu"
+import SubjectSearch from "./Component/SubjectSearch"
+import Register from "./Component/Register"
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      renderPage: "search",
+      studentName: "Ms.Duke",
+      studentFaculty: "Engineering",
+      subject: []
+    }
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  returnSubjectSearch = () => {
+    this.setState({
+      renderPage: "search"
+    })
+  }
+
+  returnRegisPage = () => {
+    this.setState({
+      renderPage: "register"
+    })
+  }
+
+  render() {
+    if (this.state.renderPage == "search") {
+      var elementFrontPage = <SubjectSearch />
+    } else if (this.state.renderPage == "register") {
+      var elementFrontPage = <Register />
+    }
+
+    return (
+      <div className="container">
+        <br />
+        <h1 className="subtitle is-3">
+          ระบบลงทะเบียนเรียน | Subject Registration System
+        </h1>
+        <hr />
+        <div className="columns">
+          <div className="column is-3">
+            <Menu
+              name={this.state.studentName}
+              faculty={this.state.studentFaculty}
+            />
+          </div>
+          <div className="column is-9">
+            <div className="tabs">
+              <ul>
+                <li
+                  className={
+                    this.state.renderPage == "search" ? "is-active" : ""
+                  }
+                >
+                  <a onClick={this.returnSubjectSearch}> ค้นหารายวิชา </a>
+                </li>
+                <li
+                  className={
+                    this.state.renderPage == "register" ? "is-active" : ""
+                  }
+                >
+                  <a onClick={this.returnRegisPage}>ลงทะเบียนเรียน</a>
+                </li>
+              </ul>
+            </div>
+            <div id="element">{elementFrontPage}</div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
-
-export default App;
+export default App
