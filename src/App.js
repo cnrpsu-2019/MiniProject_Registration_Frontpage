@@ -10,8 +10,36 @@ class App extends Component {
       renderPage: "search",
       studentName: "Ms.Duke",
       studentFaculty: "Engineering",
-      subject: []
+      regisSubject: [
+        {
+          subjectCode: "",
+          subjectName: "",
+          subjectRegisAmount: 0,
+          subjectAllAmount: 0,
+          deleteStatus: false
+        }
+      ]
     }
+  }
+
+  componentDidMount() {
+    var mockRegisSubject = Array(
+      {
+        subjectCode: "240-461",
+        subjectName: "Enterprise Network",
+        subjectRegisAmount: 2,
+        subjectAllAmount: 30,
+        deleteStatus: false
+      },
+      {
+        subjectCode: "240-460",
+        subjectName: "Internet Programing",
+        subjectRegisAmount: 3,
+        subjectAllAmount: 30,
+        deleteStatus: false
+      }
+    )
+    this.setState({ regisSubject: mockRegisSubject })
   }
 
   returnSubjectSearch = () => {
@@ -30,7 +58,7 @@ class App extends Component {
     if (this.state.renderPage == "search") {
       var elementFrontPage = <SubjectSearch />
     } else if (this.state.renderPage == "register") {
-      var elementFrontPage = <Register />
+      var elementFrontPage = <Register value={this.state.regisSubject} />
     }
 
     return (

@@ -4,37 +4,8 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      regisSubject: [
-        {
-          subjectCode: "",
-          subjectName: "",
-          subjectRegisAmount: 0,
-          subjectAllAmount: 0,
-          deleteStatus: false
-        }
-      ]
+      regisSubject: this.props.value
     }
-  }
-
-  componentDidMount() {
-    //Mock Data
-    var mockRegisSubject = Array(
-      {
-        subjectCode: "240-461",
-        subjectName: "Enterprise Network",
-        subjectRegisAmount: 2,
-        subjectAllAmount: 30,
-        deleteStatus: false
-      },
-      {
-        subjectCode: "240-460",
-        subjectName: "Internet Programing",
-        subjectRegisAmount: 3,
-        subjectAllAmount: 30,
-        deleteStatus: false
-      }
-    )
-    this.setState({ regisSubject: mockRegisSubject })
   }
 
   renderSubject = () => {
@@ -42,7 +13,6 @@ class Register extends Component {
     let displayTable = _.map(this.state.regisSubject, subjectinfo => {
       return (
         <tr>
-          {/* <th>1</th> */}
           <td>{subjectinfo.subjectCode}</td>
           <td>{subjectinfo.subjectName}</td>
           <td>{subjectinfo.subjectRegisAmount}</td>
@@ -57,6 +27,8 @@ class Register extends Component {
     })
     return displayTable
   }
+
+  registerSubmit = () => {}
 
   render() {
     let displayTable = this.renderSubject()
@@ -82,6 +54,10 @@ class Register extends Component {
             <tbody>{displayTable}</tbody>
           </table>
         </div>
+        <hr />
+        <button className="button is-primary" onClick={this.registerSubmit}>
+          ยืนยันการลงทะเบียน
+        </button>
       </div>
     )
   }
