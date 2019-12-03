@@ -3,19 +3,39 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      regisSubject: []
+      regisSubject: [
+        {
+          subjectCode: "",
+          subjectName: "",
+          subjectRegisAmount: 0,
+          subjectAllAmount: 0,
+          teacher: "",
+          deleteStatus: false
+        }
+      ]
     }
   }
 
-  showSubject = () => {
+  componentDidMount() {
+    //Mock Data
+    //TODO
+  }
+
+  renderSubject = () => {
+    for (var i = 0; i < this.state.regisSubject.length; i++) {
+      this.showSubject(i)
+    }
+  }
+
+  showSubject = ref => {
     return (
       <tr>
-        <th>1</th>
-        <td>240-460</td>
-        <td>Internet Programing</td>
-        <td>3</td>
-        <td>60</td>
-        <td>สุธน</td>
+        <th>{ref + 1}}</th>
+        <td>{this.state.regisSubject[ref].subjectCode}</td>
+        <td>{this.state.regisSubject[ref].subjectName}</td>
+        <td>{this.state.regisSubject[ref].subjectRegisAmount}</td>
+        <td>{this.state.regisSubject[ref].subjectAllAmount}</td>
+        <td>ไม่มัข้อมูล</td>
         <td>
           <button className="button is-danger">ลบ</button>
         </td>
@@ -23,8 +43,9 @@ class Register extends Component {
       </tr>
     )
   }
+
   render() {
-    var subject = this.showSubject()
+    var subject = this.renderSubject()
     return (
       <div>
         <h3 className="title is-4">รายวิชาที่อยู่ใน List การ Register</h3>
