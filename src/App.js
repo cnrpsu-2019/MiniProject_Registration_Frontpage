@@ -11,8 +11,9 @@ class App extends Component {
     super(props)
     this.state = {
       renderPage: "search",
-      studentName: "Ms.Duke",
+      studentName: "Ms.Dook",
       studentFaculty: "Engineering",
+      studentCode: "5910110999",
       regisSubject: []
     }
   }
@@ -22,24 +23,6 @@ class App extends Component {
     Axios.get(url).then(valueRespond => {
       this.setState({ regisSubject: valueRespond.data })
     })
-
-    // var mockRegisSubject = Array(
-    //   {
-    //     subjectCode: "240-461",
-    //     subjectName: "Enterprise Network",
-    //     subjectRegisAmount: 2,
-    //     subjectAllAmount: 30,
-    //     deleteStatus: false
-    //   },
-    //   {
-    //     subjectCode: "240-460",
-    //     subjectName: "Internet Programing",
-    //     subjectRegisAmount: 3,
-    //     subjectAllAmount: 30,
-    //     deleteStatus: false
-    //   }
-    // )
-    // this.setState({ regisSubject: mockRegisSubject })
   }
 
   returnSubjectSearch = () => {
@@ -73,6 +56,7 @@ class App extends Component {
             <Menu
               name={this.state.studentName}
               faculty={this.state.studentFaculty}
+              studentCode={this.state.studentCode}
             />
           </div>
           <div className="column is-9">
