@@ -3,6 +3,9 @@ import "bulma/css/bulma.min.css"
 import Menu from "./Component/Menu"
 import SubjectSearch from "./Component/SubjectSearch"
 import Register from "./Component/Register"
+import Axios from "axios"
+
+let url = "http://dev.theduckcreator.in.th:8080/subject/"
 class App extends Component {
   constructor(props) {
     super(props)
@@ -10,36 +13,33 @@ class App extends Component {
       renderPage: "search",
       studentName: "Ms.Duke",
       studentFaculty: "Engineering",
-      regisSubject: [
-        {
-          subjectCode: "",
-          subjectName: "",
-          subjectRegisAmount: 0,
-          subjectAllAmount: 0,
-          deleteStatus: false
-        }
-      ]
+      regisSubject: []
     }
   }
 
   componentDidMount() {
-    var mockRegisSubject = Array(
-      {
-        subjectCode: "240-461",
-        subjectName: "Enterprise Network",
-        subjectRegisAmount: 2,
-        subjectAllAmount: 30,
-        deleteStatus: false
-      },
-      {
-        subjectCode: "240-460",
-        subjectName: "Internet Programing",
-        subjectRegisAmount: 3,
-        subjectAllAmount: 30,
-        deleteStatus: false
-      }
-    )
-    this.setState({ regisSubject: mockRegisSubject })
+    console.log("Go to ComponentDidMount")
+    Axios.get(url).then(valueRespond => {
+      this.setState({ regisSubject: valueRespond.data })
+    })
+
+    // var mockRegisSubject = Array(
+    //   {
+    //     subjectCode: "240-461",
+    //     subjectName: "Enterprise Network",
+    //     subjectRegisAmount: 2,
+    //     subjectAllAmount: 30,
+    //     deleteStatus: false
+    //   },
+    //   {
+    //     subjectCode: "240-460",
+    //     subjectName: "Internet Programing",
+    //     subjectRegisAmount: 3,
+    //     subjectAllAmount: 30,
+    //     deleteStatus: false
+    //   }
+    // )
+    // this.setState({ regisSubject: mockRegisSubject })
   }
 
   returnSubjectSearch = () => {

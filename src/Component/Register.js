@@ -10,6 +10,7 @@ class Register extends Component {
 
   renderSubject = () => {
     console.log("hi from renderSubject")
+    console.log(this.state.regisSubject)
     let displayTable = _.map(this.state.regisSubject, subjectinfo => {
       return (
         <tr>
