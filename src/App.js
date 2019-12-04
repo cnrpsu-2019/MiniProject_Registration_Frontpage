@@ -10,18 +10,20 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      renderPage: "search",
+      renderPage: "",
       studentName: "Ms.Dook",
       studentFaculty: "Engineering",
       studentCode: "5910110999",
-      regisSubject: []
+      allSubject: []
     }
   }
 
   componentDidMount() {
     console.log("Go to ComponentDidMount")
     Axios.get(url).then(valueRespond => {
-      this.setState({ regisSubject: valueRespond.data })
+      this.setState({ allSubject: valueRespond.data })
+      console.log(this.state.allSubject)
+      this.returnSubjectSearch()
     })
   }
 
@@ -39,11 +41,12 @@ class App extends Component {
 
   render() {
     if (this.state.renderPage == "search") {
-      var elementFrontPage = <SubjectSearch />
+      var elementFrontPage = <SubjectSearch value={this.state.allSubject} />
     } else if (this.state.renderPage == "register") {
-      var elementFrontPage = <Register value={this.state.regisSubject} />
+      var elementFrontPage = <Register value={this.state.allSubject} />
+    } else {
+      var elementFrontPage = null
     }
-
     return (
       <div className="container">
         <br />
