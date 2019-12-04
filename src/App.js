@@ -3,14 +3,12 @@ import "bulma/css/bulma.min.css"
 import Menu from "./Component/Menu"
 import SubjectSearch from "./Component/SubjectSearch"
 import Register from "./Component/Register"
-import Axios from "axios"
 
-let url = "http://dev.theduckcreator.in.th:8080/subject/"
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      renderPage: "",
+      renderPage: "search",
       studentName: "Ms.Dook",
       studentFaculty: "Engineering",
       studentCode: "5910110999",
@@ -20,11 +18,6 @@ class App extends Component {
 
   componentDidMount() {
     console.log("Go to ComponentDidMount")
-    Axios.get(url).then(valueRespond => {
-      this.setState({ allSubject: valueRespond.data })
-      console.log(this.state.allSubject)
-      this.returnSubjectSearch()
-    })
   }
 
   returnSubjectSearch = () => {
@@ -41,9 +34,10 @@ class App extends Component {
 
   render() {
     if (this.state.renderPage == "search") {
-      var elementFrontPage = <SubjectSearch value={this.state.allSubject} />
+      var elementFrontPage = <SubjectSearch />
     } else if (this.state.renderPage == "register") {
-      var elementFrontPage = <Register value={this.state.allSubject} />
+      var elementFrontPage = null
+      // var elementFrontPage = "<Register value={this.state.allSubject} />"
     } else {
       var elementFrontPage = null
     }
