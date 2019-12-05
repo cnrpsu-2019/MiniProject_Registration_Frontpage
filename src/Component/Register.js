@@ -27,11 +27,11 @@ class Register extends Component {
     }
     console.log(registerRequest)
     let registerRequestJSON = JSON.stringify(registerRequest)
-    let stringLength = registerRequestJSON.length
-    let requestParam = registerRequestJSON.substring(1, stringLength - 1)
-    console.log(requestParam)
 
-    Axios.post(baseUrl, requestParam)
+    console.log(registerRequestJSON)
+    console.log("String Parse")
+    console.log(JSON.parse(registerRequestJSON))
+    Axios.post(baseUrl, JSON.parse(registerRequestJSON))
       .then(response => {
         console.log(response)
       })
