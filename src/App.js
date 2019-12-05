@@ -12,6 +12,7 @@ class App extends Component {
       studentName: "Ms.Dook",
       studentFaculty: "Engineering",
       studentCode: "5910110999",
+      regisSubject: [],
       allSubject: []
     }
     this.returnRegisPage = this.returnRegisPage.bind(this)
@@ -27,10 +28,13 @@ class App extends Component {
     })
   }
 
-  returnRegisPage = () => {
+  returnRegisPage = subject => {
     this.setState({
-      renderPage: "register"
+      renderPage: "register",
+      regisSubject: subject
     })
+    console.log("Return Regis Subject")
+    console.log(subject)
   }
 
   render() {
@@ -42,8 +46,7 @@ class App extends Component {
         />
       )
     } else if (this.state.renderPage == "register") {
-      // var elementFrontPage = null
-      var elementFrontPage = <Register />
+      var elementFrontPage = null
     } else {
       var elementFrontPage = null
     }
@@ -71,18 +74,6 @@ class App extends Component {
                   }
                 >
                   <a onClick={this.returnSubjectSearch}> ค้นหารายวิชา </a>
-                </li>
-                <li
-                  title="กรุณาคลิกที่ ลงทะเบียน ปุ่มสีเขียวด้านล่าง"
-                  className={
-                    this.state.renderPage == "register" ? "is-active" : ""
-                  }
-                >
-                  {this.state.renderPage == "register" ? (
-                    <a>ลงทะเบียนเรียน</a>
-                  ) : (
-                    "ลงทะเบียนเรียน"
-                  )}
                 </li>
               </ul>
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import _ from "lodash"
 import Axios from "axios"
-import RegisterProcess from "./RegisterProcess"
+import Register from "./Register"
 let baseUrl = "http://dev.theduckcreator.in.th:8080/"
 
 //Note On Function RenderObject
@@ -11,13 +11,13 @@ class SubjectSearch extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      student: this.props.student,
       subject: [],
       registerSubject: [],
       searchFaculty: "",
       displayTable: null,
       displayPreregisTable: null,
-      enableSubjectSearch: false
+      enableRegisterProcess: false,
+      registerResult: null
     }
     this.activeFacultySearch = this.activeFacultySearch.bind(this)
     this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this)
@@ -68,7 +68,16 @@ class SubjectSearch extends Component {
     console.log("Add or Remove For Register call")
     let newRegisSubject = this.state.registerSubject
     if (phase == 1) {
-      newRegisSubject.push(subject)
+      var addAble = true
+      for (var i = 0; i < this.state.registerSubject.length; i++) {
+        if (this.state.registerSubject[i].subjectCode == subject.subjectCode) {
+          window.alert("คุณได้ลงวิชานี้ไปแล้ว")
+          addAble = false
+        }
+      }
+      if (addAble == true) {
+        newRegisSubject.push(subject)
+      }
     }
     if (phase == 2) {
       newRegisSubject.pop(subject)
@@ -93,16 +102,17 @@ class SubjectSearch extends Component {
   }
 
   register = () => {
-    window.confirm("ยินยันการลงทะเบียน")
-    {
-      this.props.returnRegisPage()
-    }
-    return (
-      <RegisterProcess
+    let registerResult = (
+      <Register
+        // student={this.state.student}
         subject={this.state.registerSubject}
-        id={this.state.student}
       />
     )
+
+    this.setState({
+      enableRegisterProcess: true,
+      registerResult: registerResult
+    })
   }
 
   render() {
@@ -138,10 +148,15 @@ class SubjectSearch extends Component {
                 </h5>
               </div>
               <div className="column">
-                <p>ส่งฟอร์มการลงทะเบียน</p>
-                <button className="button is-primary" onClick={this.register}>
-                  ลงทะเบียน
-                </button>
+                <form>
+                  <p>ส่งฟอร์มการลงทะเบียน</p>
+                  <div className="control">
+                    <input className="input"></input>
+                  </div>
+                  <button className="button is-primary" onClick={this.register}>
+                    ลงทะเบียน
+                  </button>
+                </form>
               </div>
             </div>
           </div>
@@ -181,6 +196,11 @@ class SubjectSearch extends Component {
             <tbody>{this.state.displayPreregisTable}</tbody>
           </table>
         </div>
+        <hr />
+        <h4 className="title is-5 ">ช่วงการลงทะเบียนเรียน</h4>
+        {this.state.enableRegisterProcess == true
+          ? this.state.registerResult
+          : ""}
       </div>
     )
   }

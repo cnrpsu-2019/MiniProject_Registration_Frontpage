@@ -5,7 +5,7 @@ class Menu extends Component {
     this.state = {
       name: this.props.name,
       faculty: this.props.faculty,
-      code: this.props.studentCode
+      code: this.props.studentCod
     }
   }
 
@@ -37,7 +37,6 @@ class Menu extends Component {
               <p className="subtitle is-6">{this.state.faculty}</p>
             </div>
           </div>
-          <p className="subtitle is-6">{this.state.code}</p>
           <div className="content">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
             nec iaculis mauris. <a>@bulmaio</a>.<a href="#">#css</a>{" "}
