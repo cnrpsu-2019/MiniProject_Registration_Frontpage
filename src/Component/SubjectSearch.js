@@ -17,10 +17,13 @@ class SubjectSearch extends Component {
       displayTable: null,
       displayPreregisTable: null,
       enableRegisterProcess: false,
-      registerResult: null
+      registerResult: null,
+      studentCode: "5910110150"
     }
     this.activeFacultySearch = this.activeFacultySearch.bind(this)
     this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this)
+    this.typingChange = this.typingChange.bind(this)
+    this.register = this.register.bind(this)
   }
 
   onSubmitSearchForm = event => {
@@ -101,23 +104,33 @@ class SubjectSearch extends Component {
     console.log(this.state.searchFaculty)
   }
 
-  register = () => {
-    let registerResult = (
-      <Register
-        // student={this.state.student}
-        subject={this.state.registerSubject}
-      />
-    )
-
+  register = event => {
+    console.log("Register Function Call")
+    console.log(this.state.studentCode)
+    var student = this.state.studentCode
+    var subject = this.state.registerSubject
+    var registerResult
+    registerResult = <Register student={student} subject={subject} />
     this.setState({
       enableRegisterProcess: true,
       registerResult: registerResult
     })
+    event.preventDefault()
+  }
+
+  typingChange = event => {
+    this.setState({
+      studentCode: event.target.value
+    })
+    console.log(this.state.studentCode)
   }
 
   render() {
     return (
       <div>
+        {this.state.enableRegisterProcess == true
+          ? this.state.registerResult
+          : ""}
         <div className="columns">
           <div className="column is-6">
             <form onSubmit={this.onSubmitSearchForm}>
@@ -148,12 +161,24 @@ class SubjectSearch extends Component {
                 </h5>
               </div>
               <div className="column">
-                <form>
+                <form onSubmit={this.register}>
                   <p>ส่งฟอร์มการลงทะเบียน</p>
                   <div className="control">
-                    <input className="input"></input>
+                    <label className="label">ใส่รหัสนักศีกษา</label>
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="Enter Student Code"
+                      maxLength="10"
+                      minLength="10"
+                      required
+                      pattern="[0-9]{10}"
+                      value={this.state.studentCode}
+                      onChange={this.typingChange}
+                    ></input>
                   </div>
-                  <button className="button is-primary" onClick={this.register}>
+                  <br />
+                  <button type="submit" className="button is-primary">
                     ลงทะเบียน
                   </button>
                 </form>
@@ -197,10 +222,6 @@ class SubjectSearch extends Component {
           </table>
         </div>
         <hr />
-        <h4 className="title is-5 ">ช่วงการลงทะเบียนเรียน</h4>
-        {this.state.enableRegisterProcess == true
-          ? this.state.registerResult
-          : ""}
       </div>
     )
   }

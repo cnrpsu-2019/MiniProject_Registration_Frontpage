@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import "bulma/css/bulma.min.css"
 import Menu from "./Component/Menu"
 import SubjectSearch from "./Component/SubjectSearch"
-import Register from "./Component/Register"
+// import Register from "./Component/Register"
 
 class App extends Component {
   constructor(props) {
