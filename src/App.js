@@ -14,6 +14,7 @@ class App extends Component {
       studentCode: "5910110999",
       allSubject: []
     }
+    this.returnRegisPage = this.returnRegisPage.bind(this)
   }
 
   componentDidMount() {
@@ -34,10 +35,15 @@ class App extends Component {
 
   render() {
     if (this.state.renderPage == "search") {
-      var elementFrontPage = <SubjectSearch />
+      var elementFrontPage = (
+        <SubjectSearch
+          student={this.state.studentCode}
+          returnRegisPage={this.returnRegisPage}
+        />
+      )
     } else if (this.state.renderPage == "register") {
-      var elementFrontPage = null
-      // var elementFrontPage = "<Register value={this.state.allSubject} />"
+      // var elementFrontPage = null
+      var elementFrontPage = <Register />
     } else {
       var elementFrontPage = null
     }
@@ -67,11 +73,16 @@ class App extends Component {
                   <a onClick={this.returnSubjectSearch}> ค้นหารายวิชา </a>
                 </li>
                 <li
+                  title="กรุณาคลิกที่ ลงทะเบียน ปุ่มสีเขียวด้านล่าง"
                   className={
                     this.state.renderPage == "register" ? "is-active" : ""
                   }
                 >
-                  <a onClick={this.returnRegisPage}>ลงทะเบียนเรียน</a>
+                  {this.state.renderPage == "register" ? (
+                    <a>ลงทะเบียนเรียน</a>
+                  ) : (
+                    "ลงทะเบียนเรียน"
+                  )}
                 </li>
               </ul>
             </div>
