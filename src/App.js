@@ -57,29 +57,17 @@ class App extends Component {
           ระบบลงทะเบียนเรียน | Subject Registration System
         </h1>
         <hr />
-        <div className="columns">
-          <div className="column is-3">
-            <Menu
-              name={this.state.studentName}
-              faculty={this.state.studentFaculty}
-              studentCode={this.state.studentCode}
-            />
-          </div>
-          <div className="column is-9">
-            <div className="tabs">
-              <ul>
-                <li
-                  className={
-                    this.state.renderPage == "search" ? "is-active" : ""
-                  }
-                >
-                  <a onClick={this.returnSubjectSearch}> ค้นหารายวิชา </a>
-                </li>
-              </ul>
-            </div>
-            <div id="element">{elementFrontPage}</div>
-          </div>
+
+        <div className="tabs">
+          <ul>
+            <li
+              className={this.state.renderPage == "search" ? "is-active" : ""}
+            >
+              <a onClick={this.returnSubjectSearch}> ค้นหารายวิชา </a>
+            </li>
+          </ul>
         </div>
+        <div id="element">{elementFrontPage}</div>
       </div>
     )
   }

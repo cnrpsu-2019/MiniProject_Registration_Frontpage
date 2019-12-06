@@ -72,9 +72,10 @@ class Register extends Component {
     return (
       <div>
         <h3 className="title is-4">เริ่มเข้าสู่การลงทะเบียน</h3>
-        <p>รหัสนักศึกษา {this.state.student} กรุณารอสักครู่</p>
-
-        {/* <progress className="progress is-small is-warning" max="100" /> */}
+        <p>รหัสนักศึกษา {this.state.student} </p>
+        {this.state.serverEventResult !== null
+          ? "การลงทะเบียนจบแล้ว"
+          : "กรุณารอสักครู่"}
         <hr />
       </div>
     )

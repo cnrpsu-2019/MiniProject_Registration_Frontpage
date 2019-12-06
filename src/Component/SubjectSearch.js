@@ -18,7 +18,7 @@ class SubjectSearch extends Component {
       displayPreregisTable: null,
       enableRegisterProcess: false,
       registerResult: null,
-      studentCode: "5910110150"
+      studentCode: ""
     }
     this.activeFacultySearch = this.activeFacultySearch.bind(this)
     this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this)
@@ -110,6 +110,7 @@ class SubjectSearch extends Component {
     var student = this.state.studentCode
     var subject = this.state.registerSubject
     var registerResult
+    window.confirm("กรุณายืนยันการลงทะเบียน")
     registerResult = <Register student={student} subject={subject} />
     this.setState({
       enableRegisterProcess: true,
@@ -152,74 +153,80 @@ class SubjectSearch extends Component {
               </div>
             </form>
           </div>
+        </div>
+
+        <hr />
+        <div className="columns">
           <div className="column is-6">
-            <div className="columns">
-              <div className="column">
-                <p>จำนวนการลงทะเบียน</p>
-                <h5 className="subtitle is-3">
-                  {this.state.registerSubject.length} วิชา
-                </h5>
-              </div>
-              <div className="column">
-                <form onSubmit={this.register}>
-                  <p>ส่งฟอร์มการลงทะเบียน</p>
-                  <div className="control">
-                    <label className="label">ใส่รหัสนักศีกษา</label>
-                    <input
-                      className="input"
-                      type="text"
-                      placeholder="Enter Student Code"
-                      maxLength="10"
-                      minLength="10"
-                      required
-                      pattern="[0-9]{10}"
-                      value={this.state.studentCode}
-                      onChange={this.typingChange}
-                    ></input>
-                  </div>
-                  <br />
-                  <button type="submit" className="button is-primary">
-                    ลงทะเบียน
-                  </button>
-                </form>
-              </div>
+            <h4 className="title is-5 ">รายวิชาที่ค้นหาได้</h4>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>รหัสวิชา</th>
+                  <th>ชื่อวิชา</th>
+                  <th>ลงแล้ว</th>
+                  <th>จาก</th>
+                  <th>เพิ่ม</th>
+                  <th>หมายเหตุ</th>
+                </tr>
+              </thead>
+              <tbody>{this.state.displayTable}</tbody>
+            </table>
+          </div>
+          <div className="column is-6">
+            <h4 className="title is-5 ">รายวิชาที่อยู่ใน List การลงทะเบียน</h4>
+            <p>การลบนั้นสามารถลบได้โดยเริ่มจากวิชาที่เพิ่มล่าสุดเท่านั้น</p>
+            <div>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>รหัสวิชา</th>
+                    <th>ชื่อวิชา</th>
+                    <th>ลงแล้ว</th>
+                    <th>จาก</th>
+                    <th>ลบ</th>
+                    <th>หมายเหตุ</th>
+                  </tr>
+                </thead>
+                <tbody>{this.state.displayPreregisTable}</tbody>
+              </table>
             </div>
           </div>
         </div>
 
         <hr />
-        <div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>รหัสวิชา</th>
-                <th>ชื่อวิชา</th>
-                <th>ลงแล้ว</th>
-                <th>จาก</th>
-                <th>เพิ่ม</th>
-                <th>หมายเหตุ</th>
-              </tr>
-            </thead>
-            <tbody>{this.state.displayTable}</tbody>
-          </table>
-        </div>
-        <hr />
-        <h4 className="title is-5 ">รายวิชาที่อยู่ใน List การลงทะเบียน</h4>
-        <p>การลบนั้นสามารถลบได้โดยเริ่มจากวิชาที่เพิ่มล่าสุดเท่านั้น</p>
-        <div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>รหัสวิชา</th>
-                <th>ชื่อวิชา</th>
-                <th>ลงแล้ว</th>
-                <th>จาก</th>
-                <th>ลบ</th>
-                <th>หมายเหตุ</th>
-              </tr>
-            </thead>
-            <tbody>{this.state.displayPreregisTable}</tbody>
-          </table>
+
+        <div className="columns">
+          <div className="column">
+            <p>จำนวนการลงทะเบียน</p>
+            <h5 className="subtitle is-3">
+              {this.state.registerSubject.length} วิชา
+            </h5>
+          </div>
+          <div className="column">
+            <form onSubmit={this.register}>
+              <p>ส่งฟอร์มการลงทะเบียน</p>
+              <div className="control">
+                <label className="label">ใส่รหัสนักศีกษา</label>
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Enter Student Code"
+                  maxLength="10"
+                  minLength="10"
+                  required
+                  pattern="[0-9]{10}"
+                  value={this.state.studentCode}
+                  onChange={this.typingChange}
+                ></input>
+              </div>
+              <br />
+
+              <button type="submit" className="button is-primary">
+                ลงทะเบียน
+              </button>
+            </form>
+          </div>
         </div>
         <hr />
       </div>
