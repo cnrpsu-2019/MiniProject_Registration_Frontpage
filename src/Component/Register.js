@@ -48,6 +48,10 @@ class Register extends Component {
         console.log("Socket IO Client Error")
         console.log(error)
       })
+      .finally(() => {
+        socket = io.connect(url)
+        this.setState({ result: true, socket: socket })
+      })
   }
 
   socketReturn = () => {

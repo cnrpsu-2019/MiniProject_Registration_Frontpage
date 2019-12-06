@@ -31,14 +31,14 @@ class RegisteredList extends Component {
     let url = basedURL + this.state.studentCode
     console.log(url)
     Axios.get(url).then(valueRespond => {
-      console.log(valueRespond.data.SubjectName)
-      if (valueRespond.data.SubjectName == undefined) {
+      console.log(valueRespond.data)
+      if (valueRespond.data == undefined) {
         this.setState({
           regisDisplayTable: "ยังไม่มีวิชาที่ลงทะเบียนแล้ว"
         })
         return
       }
-      let dataTable = this.renderSubject(valueRespond.data.SubjectName)
+      let dataTable = this.renderSubject(valueRespond.data)
       this.setState({
         subject: valueRespond.data.SubjectName,
         regisDisplayTable: dataTable
