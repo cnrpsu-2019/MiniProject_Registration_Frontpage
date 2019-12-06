@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import _ from "lodash"
 import Axios from "axios"
 import Register from "./Register"
-let baseUrl = "http://dev.theduckcreator.in.th:8080/"
+let baseUrl = "http://localhost:8080/"
 
 //Note On Function RenderObject
 // Phase Number to set Button Add or Remove Subject
