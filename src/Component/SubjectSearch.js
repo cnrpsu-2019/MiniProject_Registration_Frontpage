@@ -12,7 +12,7 @@ class SubjectSearch extends Component {
     super(props)
     this.state = {
       subject: [],
-      registerSubject: [],
+      SubjectName: [],
       searchFaculty: "",
       displayTable: null,
       displayPreregisTable: null,
@@ -47,10 +47,10 @@ class SubjectSearch extends Component {
     let displayTable = _.map(group, subjectinfo => {
       return (
         <tr>
-          <td>{subjectinfo.subjectCode}</td>
-          <td>{subjectinfo.subjectName}</td>
-          <td>{subjectinfo.subjectRegisAmount}</td>
-          <td>{subjectinfo.subjectAllAmount}</td>
+          <td>{subjectinfo.SubjectID}</td>
+          <td>{subjectinfo.SubjectName}</td>
+          <td>{subjectinfo.Enrolled}</td>
+          <td>{subjectinfo.Capacity}</td>
           <td>
             <button
               className={phase == 1 ? "button is-primary" : "button is-danger"}
@@ -69,11 +69,11 @@ class SubjectSearch extends Component {
   addOrRemoveForRegister = (subject, phase) => {
     //phase 1 is add , phase 2 is remove
     console.log("Add or Remove For Register call")
-    let newRegisSubject = this.state.registerSubject
+    let newRegisSubject = this.state.SubjectName
     if (phase == 1) {
       var addAble = true
-      for (var i = 0; i < this.state.registerSubject.length; i++) {
-        if (this.state.registerSubject[i].subjectCode == subject.subjectCode) {
+      for (var i = 0; i < this.state.SubjectName.length; i++) {
+        if (this.state.SubjectName[i].SubjectID == subject.SubjectID) {
           window.alert("คุณได้ลงวิชานี้ไปแล้ว")
           addAble = false
         }
@@ -86,10 +86,10 @@ class SubjectSearch extends Component {
       newRegisSubject.pop(subject)
     }
     this.setState({
-      registerSubject: newRegisSubject
+      SubjectName: newRegisSubject
     })
-    console.log(this.state.registerSubject)
-    let table = this.renderSubject(this.state.registerSubject, 2)
+    console.log(this.state.SubjectName)
+    let table = this.renderSubject(this.state.SubjectName, 2)
     this.setState({
       displayPreregisTable: table
     })
@@ -108,7 +108,7 @@ class SubjectSearch extends Component {
     console.log("Register Function Call")
     console.log(this.state.studentCode)
     var student = this.state.studentCode
-    var subject = this.state.registerSubject
+    var subject = this.state.SubjectName
     var registerResult
     window.confirm("กรุณายืนยันการลงทะเบียน")
     registerResult = <Register student={student} subject={subject} />
@@ -200,7 +200,7 @@ class SubjectSearch extends Component {
           <div className="column">
             <p>จำนวนการลงทะเบียน</p>
             <h5 className="subtitle is-3">
-              {this.state.registerSubject.length} วิชา
+              {this.state.SubjectName.length} วิชา
             </h5>
           </div>
           <div className="column">
