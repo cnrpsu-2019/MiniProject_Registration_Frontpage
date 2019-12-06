@@ -4,8 +4,7 @@ class Menu extends Component {
     super(props)
     this.state = {
       name: this.props.name,
-      faculty: this.props.faculty,
-      code: this.props.studentCod
+      faculty: this.props.faculty
     }
   }
 

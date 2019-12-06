@@ -3,7 +3,7 @@ import "bulma/css/bulma.min.css"
 import Menu from "./Component/Menu"
 import SubjectSearch from "./Component/SubjectSearch"
 // import Register from "./Component/Register"
-
+import RegisteredList from "./Component/RegisteredList"
 class App extends Component {
   constructor(props) {
     super(props)
@@ -37,6 +37,12 @@ class App extends Component {
     console.log(subject)
   }
 
+  returnRegistered = () => {
+    this.setState({
+      renderPage: "registered"
+    })
+  }
+
   render() {
     if (this.state.renderPage == "search") {
       var elementFrontPage = (
@@ -47,6 +53,8 @@ class App extends Component {
       )
     } else if (this.state.renderPage == "register") {
       var elementFrontPage = null
+    } else if (this.state.renderPage == "registered") {
+      var elementFrontPage = <RegisteredList />
     } else {
       var elementFrontPage = null
     }
@@ -64,6 +72,13 @@ class App extends Component {
               className={this.state.renderPage == "search" ? "is-active" : ""}
             >
               <a onClick={this.returnSubjectSearch}> ค้นหารายวิชา </a>
+            </li>
+            <li
+              className={
+                this.state.renderPage == "registered" ? "is-active" : ""
+              }
+            >
+              <a onClick={this.returnRegistered}> รายวิชาที่ลงไปแล้ว </a>
             </li>
           </ul>
         </div>
