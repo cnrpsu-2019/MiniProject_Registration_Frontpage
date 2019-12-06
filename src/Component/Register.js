@@ -2,15 +2,18 @@ import React, { Component } from "react"
 import _ from "lodash"
 import Axios from "axios"
 import io from "socket.io-client"
-var baseUrl = "http://localhost:8080/register"
+const expressIP = "172.30.80.26"
+var baseUrl = "http://" + expressIP + ":8080/register"
+let url = "http://" + expressIP + ":3030/" //socketIOURL
 
 class Register extends Component {
   constructor(props) {
     super(props)
     let subject = this.props.subject
+    console.log(subject)
     let subjectCode = []
     subject.forEach(sub => {
-      subjectCode.push(sub.subjectCode)
+      subjectCode.push(sub.SubjectID)
     })
     //result Fail = false, Success = true
     this.state = {
@@ -38,7 +41,6 @@ class Register extends Component {
     Axios.post(baseUrl, JSON.parse(registerRequestJSON))
       .then(response => {
         console.log(response)
-        let url = "http://localhost:3030/"
         socket = io.connect(url)
         this.setState({ result: true, socket: socket })
       })

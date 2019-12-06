@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import _ from "lodash"
 import Axios from "axios"
 import Register from "./Register"
-let baseUrl = "http://localhost:8080/"
+let baseUrl = "http://172.30.80.26:8080/"
 
 //Note On Function RenderObject
 // Phase Number to set Button Add or Remove Subject
@@ -12,7 +12,7 @@ class SubjectSearch extends Component {
     super(props)
     this.state = {
       subject: [],
-      SubjectName: [],
+      registerSubject: [],
       searchFaculty: "",
       displayTable: null,
       displayPreregisTable: null,
@@ -32,7 +32,7 @@ class SubjectSearch extends Component {
     console.log("On Submit")
     console.log(this.state.searchFaculty)
     Axios.get(url).then(valueRespond => {
-      this.setState({ subject: valueRespond.data.subject })
+      this.setState({ subject: valueRespond.data })
     })
     let table = this.renderSubject(this.state.subject, 1)
     event.preventDefault()
@@ -49,8 +49,8 @@ class SubjectSearch extends Component {
         <tr>
           <td>{subjectinfo.SubjectID}</td>
           <td>{subjectinfo.SubjectName}</td>
-          <td>{subjectinfo.Enrolled}</td>
-          <td>{subjectinfo.Capacity}</td>
+          <td>{subjectinfo.SubjectEnrolled}</td>
+          <td>{subjectinfo.SubjectCapacity}</td>
           <td>
             <button
               className={phase == 1 ? "button is-primary" : "button is-danger"}
@@ -69,11 +69,11 @@ class SubjectSearch extends Component {
   addOrRemoveForRegister = (subject, phase) => {
     //phase 1 is add , phase 2 is remove
     console.log("Add or Remove For Register call")
-    let newRegisSubject = this.state.SubjectName
+    let newRegisSubject = this.state.registerSubject
     if (phase == 1) {
       var addAble = true
-      for (var i = 0; i < this.state.SubjectName.length; i++) {
-        if (this.state.SubjectName[i].SubjectID == subject.SubjectID) {
+      for (var i = 0; i < this.state.registerSubject.length; i++) {
+        if (this.state.registerSubject[i].SubjectID == subject.SubjectID) {
           window.alert("คุณได้ลงวิชานี้ไปแล้ว")
           addAble = false
         }
@@ -86,10 +86,10 @@ class SubjectSearch extends Component {
       newRegisSubject.pop(subject)
     }
     this.setState({
-      SubjectName: newRegisSubject
+      registerSubject: newRegisSubject
     })
-    console.log(this.state.SubjectName)
-    let table = this.renderSubject(this.state.SubjectName, 2)
+    console.log(this.state.registerSubject)
+    let table = this.renderSubject(this.state.registerSubject, 2)
     this.setState({
       displayPreregisTable: table
     })
@@ -108,7 +108,7 @@ class SubjectSearch extends Component {
     console.log("Register Function Call")
     console.log(this.state.studentCode)
     var student = this.state.studentCode
-    var subject = this.state.SubjectName
+    var subject = this.state.registerSubject
     var registerResult
     window.confirm("กรุณายืนยันการลงทะเบียน")
     registerResult = <Register student={student} subject={subject} />
@@ -143,8 +143,16 @@ class SubjectSearch extends Component {
                     onChange={this.activeFacultySearch}
                   >
                     <option value="">เลือกคณะที่ต้องการ</option>
-                    <option value="engineering">วิศวกรรมศาสตร์</option>
-                    <option value="science">วิทยาศาสตร์</option>
+                    <option value="MedicineSubject">MedicineSubject</option>
+                    <option value="EngineerSubject">EngineerSubject</option>
+                    <option value="ScienceSubject">ScienceSubject</option>
+                    <option value="LiberalArtsSubject">
+                      LiberalArtsSubject
+                    </option>
+                    <option value="PharmacySubject">PharmacySubject</option>
+                    <option value="PharmaceuticalSubject">
+                      PharmaceuticalSubject
+                    </option>
                   </select>
                 </div>
                 <button type="submit" className="button is-primary">
@@ -200,7 +208,7 @@ class SubjectSearch extends Component {
           <div className="column">
             <p>จำนวนการลงทะเบียน</p>
             <h5 className="subtitle is-3">
-              {this.state.SubjectName.length} วิชา
+              {this.state.registerSubject.length} วิชา
             </h5>
           </div>
           <div className="column">

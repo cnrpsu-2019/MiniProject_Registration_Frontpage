@@ -65,7 +65,14 @@ class App extends Component {
           ระบบลงทะเบียนเรียน | Subject Registration System
         </h1>
         <hr />
-
+        {/* <div className="columns"> */}
+        {/* <div className="column is-3">
+            <Menu
+              name={this.state.studentName}
+              faculty={this.state.studentFaculty}
+            />
+          </div> */}
+        {/* <div className="column is-6"> */}
         <div className="tabs">
           <ul>
             <li
@@ -84,6 +91,8 @@ class App extends Component {
         </div>
         <div id="element">{elementFrontPage}</div>
       </div>
+      // </div>
+      // </div>
     )
   }
 }
